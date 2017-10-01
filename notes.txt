@@ -66,6 +66,17 @@
 --Setup: npm install -g surge
          surge {in proj dir}
 
+* Automation * => npm scripts
+-----------------------------
+# Options:
+-Grunt: configure over code (gruntfiles), writes files between steps, large plugin ecosystem (older)
+
+-Gulp: in-memory streams (pipes), fast (no need to write files on disk), gulpfiles (js:json), large plugin ecosystem
+
+-npm scripts: declared in package.json, leverage os cmd line, directly use npm pkges (cross-platform),
+              call separate node scripts, convention-based pre/post hooks, largest pkg manager,
+              tools directly-no need for separate plugins (gulp/grunt versions), simpler debugging - documentation
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -93,3 +104,22 @@
 -open new terminal
 -lt --port 3000
 -{or add custom subdomain} lt --port 3000 --subdomain dpathsprojekt
+
+#   Automate with npm scripts
+    #   Create script to start express server
+    -update package.json ->scripts: "start"
+    -call with npm start
+    -create pre hook file startMessage.js in buildScripts folder
+    -define "prestart" script in scripts in package.json
+
+    #   Create script to perform security check and start localtunnel
+    -update package.json ->scripts: "security-check" and "share"
+    -call with npm run security-check & npm run share
+    -!npm packages get installed automatically when run from npm-script
+
+    #   Run scripts concurrently
+    -Change start script to "npm-run-all --parallel" (see package.json)
+    -move old start script to "open:src"
+    -fire up with npm start or npm start -s (for silent mode: no output noise from individual scripts)
+    -same recipe for script localtunnel (see package.json)
+    -fire up with npm run share
