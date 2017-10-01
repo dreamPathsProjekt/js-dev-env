@@ -1,7 +1,6 @@
 #Specifications Checklist
 
 * Editor* => VsCode
-add ext: editorconfig support for VsCode
 ----------------------------------------
 #ES6 Support
 -Autocompletion
@@ -15,17 +14,52 @@ add ext: editorconfig support for VsCode
 
 * Package Manager * => npm
 --------------------------
-#Recipe (manual cmds):
--npm init
--paste dependencies from: https://gist.github.com/coryhouse/29bd1029b623beb4c7f79b748dcba844
-{or npm install specifics for latest}
--npm install
-#   Install security platform
--npm install -g nsp {installs nsp globally}
--nsp check {check for vlns}
-
-#Security Scanning
+#   Security Scanning
 -Manually: Easy to forget
 -npm install: Possible Issue later
 -Production build/pull request: Expensive to change
 -npm start: Slows start
+
+* Dev Web Server * => express
+-----------------------------
+#Options
+
+#   simple-lightweight
+-http-server: simple lightweight nodejs server
+-live-server: lightweight, live-reloading
+
+#   if existing back-end api (java,ruby etc.) skip these:
+-express: nodejs default dynamic back-end server, run on production
+|-alts: koa(es6 generators support),hapi
+
+#   bundler integration:
+-budo: integrates with browserify, hot-reloading
+-webpack dev server: built-in to webpack, fast serves from memory, hot-reloading
+
+#   special case:
+-Browsersync: Dedicated Ip for sharing on Lan,
+    hit same ip on multiple devices and remain in-sync (one click for all),
+    great for cross device testing,
+    integrates with browserify,webpack,gulp,
+    recipes to choose from
+
+=========================
+* Recipe (manual cmds) *:
+=========================
+-add ext: editorconfig support for VsCode
+
+-npm init
+-paste dependencies from: https://gist.github.com/coryhouse/29bd1029b623beb4c7f79b748dcba844
+{or npm install specifics for latest}
+-npm install
+
+#   Install security platform
+-npm install -g nsp {installs nsp globally}
+-nsp check {check for vlns}
+
+#   Install,Configure Dev Web-Server (express)
+-express pre-installed (see package.json)
+-create folder buildScripts - add file srcServer.js
+-configure express (see srcServer.js)
+-create folder src - add file index.html (see index.html boilerplate)
+-node buildScripts/srcServer.js {run express}
