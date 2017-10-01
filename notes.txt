@@ -43,6 +43,29 @@
     integrates with browserify,webpack,gulp,
     recipes to choose from
 
+* Share Work in progress * => localtunnel
+-----------------------------------------
+-localtunnel: share work from localhost, expose on firewall, fast testing combo with Browsersync
+--Setup: npm install -g localtunnel
+         start app
+         lt --port 3000
+
+-ngrok: secure tunnel to localhost, password protect access
+--Setup: signup
+         install ngrok
+         install authtoken
+         start app
+         ./ngrok http 80
+
+-now: quickly deploy node.js app to cloud, great if app has back-end in node.js
+--Setup: npm install -g now
+         create start script (e.g. run express)
+         now
+
+-surge: quickly host static file to public url, only support static files (html,css,js), easily add own domain (great for automated deployment)
+--Setup: npm install -g surge
+         surge {in proj dir}
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -63,3 +86,10 @@
 -configure express (see srcServer.js)
 -create folder src - add file index.html (see index.html boilerplate)
 -node buildScripts/srcServer.js {run express}
+
+#   Share Work with localtunnel
+-npm install -g localtunnel
+-node buildScripts/srcServer.js {run express}
+-open new terminal
+-lt --port 3000
+-{or add custom subdomain} lt --port 3000 --subdomain dpathsprojekt
