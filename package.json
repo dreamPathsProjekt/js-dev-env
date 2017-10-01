@@ -4,9 +4,9 @@
   "description": "An Opinionated JavaScript Starter-Kit ,based on the Pluralsight course:\"Building a JavaScript Development Environment\".",
   "main": "index.js",
   "scripts": {
-    "prestart": "node buildScripts/startMessage.js",
+    "prestart": "babel-node buildScripts/startMessage.js",
     "start": "npm-run-all --parallel security-check open:src",
-    "open:src": "node buildScripts/srcServer.js",
+    "open:src": "babel-node buildScripts/srcServer.js",
     "security-check": "nsp check",
     "share": "npm-run-all --parallel open:src localtunnel",
     "localtunnel": "lt --port 3000 --subdomain dpprojekt",

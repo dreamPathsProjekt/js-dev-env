@@ -77,6 +77,27 @@
               call separate node scripts, convention-based pre/post hooks, largest pkg manager,
               tools directly-no need for separate plugins (gulp/grunt versions), simpler debugging - documentation
 
+* Transpiling * => Babel =>Build Scripts:Transpiled
+---------------------------------------------------
+#   Popular Transpilers:
+
+-Babel: modern features to standards-based js (es5), leverage full js ecosystem,
+        es6 imports are statically analyzable (ide support),
+        stage-X (0-4) experimental features via plugins
+        |-  .babelrc (most common) or inside package.json:
+            -.babelrc: not npm specific, isolated->easier to read
+            -package.json: one less file in the project, in section "babel": {}
+
+-Typescript: superset of js (es5) & es6 (adds type annotations & interfaces),
+             enhanced autocompletion, safer refactoring, clearer intent
+
+-Elm: compiles down to js, clean syntax, immutable data structures automatically,
+      friendly errors, all errors are compile-time errors, interops with js, full functional language
+
+    * Transpiling Build scripts or not *
+    -Es5: faster no-wait for transpile, no transpiler dependencies
+    -Transpiled: latest features, consistent coding style, use same linting rules everywhere
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -123,3 +144,15 @@
     -fire up with npm start or npm start -s (for silent mode: no output noise from individual scripts)
     -same recipe for script localtunnel (see package.json)
     -fire up with npm run share
+
+#   Configure Babel
+- Select based on node version (node.js specific or electron):
+    -babel-preset-es2015-node | Version detection (node specific)
+    -babel-preset-latest-minimal | Feature detection
+- Create .babelrc file in project folder
+- Add "presets": latest (see .babelrc) for feature detection
+- Test: change startMessage.js ->use import (module syntax) instead of var * = require('') (see startMessage.js)
+- npm start fails!
+- solution change node to babel-node (babel transpiles build scripts) cmd on scripts in package.json (see package.json)
+- npm start transpiled
+- also edit srcServer.js to es6 (see srcServer.js and commits diff)

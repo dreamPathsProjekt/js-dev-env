@@ -1,9 +1,15 @@
-var express = require('express'); //load express
-var path = require('path');
-var open = require('open'); //open site in browser
+//transpile build script: change to es6 imports
 
-var port = 3000;
-var app = express(); //create instance of express
+//var express = require('express'); //load express
+import express from 'express';
+//var path = require('path');
+import path from 'path';
+//var open = require('open'); //open site in browser
+import open from 'open';
+
+//transpile build scrip: change var to const
+const port = 3000;
+const app = express(); //create instance of express
 
 //join base dir with static src directory
 app.get('/', function(request, response) {
