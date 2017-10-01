@@ -15,9 +15,17 @@ add ext: editorconfig support for VsCode
 
 * Package Manager * => npm
 --------------------------
-#Recipe:
+#Recipe (manual cmds):
 -npm init
 -paste dependencies from: https://gist.github.com/coryhouse/29bd1029b623beb4c7f79b748dcba844
 {or npm install specifics for latest}
 -npm install
+#   Install security platform
+-npm install -g nsp {installs nsp globally}
+-nsp check {check for vlns}
 
+#Security Scanning
+-Manually: Easy to forget
+-npm install: Possible Issue later
+-Production build/pull request: Expensive to change
+-npm start: Slows start
