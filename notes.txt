@@ -1,13 +1,23 @@
-Specifications Checklist
+#Specifications Checklist
 
-* Editor* => VsCode => ext: editorconfig support for VsCode
-----------------------------------------------------------
-**ES6 Support**
+* Editor* => VsCode
+add ext: editorconfig support for VsCode
+----------------------------------------
+#ES6 Support
 -Autocompletion
 -Parse ES6 imports
 -Report unused imports
 -Automated Refactoring
 
-**Framework Intelligense**
+#Framework Intelligense
 
-**Built-In Terminal**
+#Built-In Terminal
+
+* Package Manager * => npm
+--------------------------
+#Recipe:
+-npm init
+-paste dependencies from: https://gist.github.com/coryhouse/29bd1029b623beb4c7f79b748dcba844
+{or npm install specifics for latest}
+-npm install
+
