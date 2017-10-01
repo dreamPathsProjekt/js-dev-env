@@ -1,0 +1,13 @@
+Specifications Checklist
+
+* Editor* => VsCode => ext: editorconfig support for VsCode
+----------------------------------------------------------
+**ES6 Support**
+-Autocompletion
+-Parse ES6 imports
+-Report unused imports
+-Automated Refactoring
+
+**Framework Intelligense**
+
+**Built-In Terminal**
