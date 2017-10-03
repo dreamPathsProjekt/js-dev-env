@@ -262,11 +262,63 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 
     # Options:
     - Travis (Linux): hosted, large ecosystem, uses github
-    - Appveyor (Windows)
+    - Appveyor (Windows): hosted
     - Jenkins: self-hosted/cloud, large ecosystem
     - CircleCI
     - Semaphore
     - SnapCI
+
+* HTTP Calls *
+--------------
+#   Options: { (*) preferred }
+
+- Node: (libraries) http, request (*)
+
+- Browser: plain XMLHttpRequest (lots of plumbing), jQuery $.ajax(), Framework-based,
+           Fetch (Api) (*) -> lacks multi-browser support needs polyfill:
+              Browser polyfill: github.com/github/fetch
+              Isomorphic: github.com/matthew-andrews/isomorphic-fetch
+
+- Node & Browser: isomorphic-fetch (*), xhr (npm pkg), SuperAgent, Axios (libs) (*)
+
+#  (important!) Centralize API Calls:
+- Single spot to configure all Calls
+- Handle preloader logic (e.g. spinner shows on user)
+- Single place to Handle Errors (dialogs, alerts)
+- Single seam for mocking
+
+#   Send polyfill to only needed browsers (instead of everyone on js file):
+- polyfill.io
+
+#   Mocking HTTP
+    #   Reasons:
+    - Unit Test
+    - Instant response
+    - Keep working when service is down
+    - Rapid prototypes
+    - Avoid inter-team bottlenecks (while other team works on service resources)
+    - Work offline on client-side
+
+    #   How to mock:
+    - Nock: unit test
+    - Static JSON:
+    - Create dev web-server:
+        -api-mock
+        -JSON server (works with static JSON too)
+        -JSON Schema faker (dynamic JSON generation)
+        -Browsersync, Express: custom API, more work, comprehensive
+
+    Static JSON     JSON Server     JSON Server+ JSON Schema Faker      Express,Browsersync etc.
+    >------------------------------------------------------------------------------------------->
+    --> Upfront work
+    --> Realism simulation
+    --> Customization
+
+#   Mocking plan:
+- 1.Declare schema: JSON Schema Faker
+- 2.Generate Random Data: faker.js, chance.js, randexp.js (based on regexp)
+- 3.Serve Data via API: JSON Server pointed to dynamically json generated at 2.
+
 
 
 =========================
@@ -402,6 +454,22 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - New Project - auth github and add repo
 - Create appveyor.yml on /
 - Edit configuration (see appveyor.yml)
+- On AppVeyor dashboard click latest build
+
+#   Set quick Node/Express Api
+- Create single endpoint (/users)-> Inside srcServer.js for simplicity
+- Test with npm start
+
+#   Centralize HTTP calls
+- Create folder src/api/ -> create userApi.js file that consumes users entity
+- Create simple fetch function getUsers() (see userApi.js)
+- See index.html for api call in table use
+- Consume endpoint in index.js and populate table (see index.js)
+- Adjust DOM tests as needed
+
+#   Setup fetch - Selective polyfilling
+- In index.html set <script src="https://cdn.polyfill.io/v2/polyfill.js?features=fetch"></script>
+
 
 
 ********************************************************************************

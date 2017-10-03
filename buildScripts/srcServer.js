@@ -29,6 +29,16 @@ app.get('/', function(request, response) {
     response.sendFile(path.join(__dirname, '../src/index.html'));
 });
 
+// create single endpoint
+app.get('/users', function(request, response) {
+    // Hard coded
+    response.json([
+        {"id": 1, "firstName": "Bob", "lastName": "Smith", "email": "bob@gmail.com"},
+        {"id": 2, "firstName": "Foo", "lastName": "Bar", "email": "foobar@gmail.com"},
+        {"id": 3, "firstName": "Dream", "lastName": "Paths", "email":"dream.paths.projekt@gmail.com"}
+    ]);
+});
+
 //set express to listen to :3000 and attach error handling
 /* eslint-disable no-console */
 app.listen(port, function(err){

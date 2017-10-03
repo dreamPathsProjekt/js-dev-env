@@ -29,3 +29,20 @@ describe('index.html', () => {
         });
     });
 });
+
+//use 2nd test to test the table
+describe('index.html', () => {
+    // if no argument passed to callback ,async test runs wrong => use done()
+    it('should have h1 that says Users', (done) => {
+        //load document
+        const index = fs.readFileSync('./src/index.html', 'utf-8');
+        //you can pass array of js files in the environment second param, to run with the html file (need to use isomorphic fetch()).
+        jsdom.env(index, function(err, window) {
+            // window represents browser window
+            const h1 = window.document.getElementsByTagName('h1')[1]; //get the second h1 in the page
+            expect(h1.innerHTML).to.equal("Users");
+            done(); // for async error
+            window.close(); //free memory
+        });
+    });
+});
