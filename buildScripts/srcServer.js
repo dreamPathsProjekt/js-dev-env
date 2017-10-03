@@ -7,9 +7,22 @@ import path from 'path';
 //var open = require('open'); //open site in browser
 import open from 'open';
 
-//transpile build scrip: change var to const
+import webpack from 'webpack';
+import config from '../webpack.config.dev';
+
+//transpile build script: change var to const
 const port = 3000;
 const app = express(); //create instance of express
+
+//set webpack compiler
+const compiler = webpack(config);
+
+//webpack setup in express
+//express use webpack-dev-middleware ,pass compiler, define noInfo and public path
+app.use(require('webpack-dev-middleware')(compiler,{
+    noInfo: true,
+    publicPath: config.output.publicPath
+}));
 
 //join base dir with static src directory
 app.get('/', function(request, response) {

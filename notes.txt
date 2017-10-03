@@ -98,6 +98,48 @@
     -Es5: faster no-wait for transpile, no transpiler dependencies
     -Transpiled: latest features, consistent coding style, use same linting rules everywhere
 
+* Bundling * => Webpack
+-----------------------
+#   Js Modules
+
+The Past:|-Globals: myGlobal; //should be avoided
+         |
+         |-IIFE (Immediately Invoked Function Expressions): Using Closures to encapsulate variables
+         |    (function() {
+         |        //code
+         |    })();
+         |
+         |-AMD (Asynchronous Module Definition): define(['jq'], function(jq) {});
+
+-UMD (Universal Module Definition)
+
+-CommonJS: var jquery = require('jquery');
+
+Present &|
+Future:  |-Es6 Modules: import jQuery from 'jquery';
+
+ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refactoring), code fails fast,
+             tree shaking, easy to read(vs AMD,UMD), named imports, default exports
+
+#   Bundler Options:
+
+-require.js (AMD): old
+
+-browserify: first to use imports & npm pkges, bundle npm pkges for the web, large plugin ecosystem
+
+-webpack: bundles more than js, import static content:CSS,images,fonts etc. like JS (even HTML),
+          built-in web server with hot-reloading, serves files from memory, bundle splitting (download on-demand)
+
+-rollup: tree shaking (remove unused code & imports), faster loading production code (vs. Webpack,browserify),
+         quite new (few support), no hot-reloading & code-splitting yet
+
+-jspm: uses systemJS a Universal Module Loader (supports mult. module format), load modules at runtime, has own pkg manager,
+       can install from npm,git, uses rollup
+
+#   Sourcemaps (maps code from bundled & transpiled back to original source, for debugging):
+- Part of our build
+- Only downloaded when open dev tools (so only dlded when needed)
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -156,3 +198,33 @@
 - solution change node to babel-node (babel transpiles build scripts) cmd on scripts in package.json (see package.json)
 - npm start transpiled
 - also edit srcServer.js to es6 (see srcServer.js and commits diff)
+
+#   Configure Webpack
+- Create webpack.config.js (or webpack.config.dev.js) in project root folder
+- Dev config: https://gist.github.com/coryhouse/d611e83e432f3ae65cc46ebb9b599930 (see webpack.config.dev.js)
+
+#   Configure Webpack with Express to serve the bundle
+- In srcServer.js add imports for webpack & webpack.config.dev.js
+- Same file: set webpack compiler to compile on config
+- Wire-up express with webpack (see srcServer.js)
+- Create entry-point index.js (see index.js)
+- Reference bundle.js in index.html
+- Test bundling with npm start
+
+#   How to Add CSS to bundle
+- create index.css (in src but preferably in css folder)
+- import css in index.js (see index.js) like importing js file
+- behind the scenes bundle.js injects css with javascript in the document. Same can be done for SASS,LESS etc.
+
+#   Configure build with Sourcemaps (Debug bundled & transpiled js)
+- in webpack.config.dev.js -> devtool: 'inline-source-map' | Explore different options
+- add breakpoint in index.js with debugger (see index.js)
+- hit localhost:3000 with dev-tools and original es6 code is there
+
+
+
+********************************************************************************
+*                                                                              *
+*!Bugfix: Terminate batch job not closing => Use Powershell as VsCode terminal.*
+*                                                                              *
+********************************************************************************
