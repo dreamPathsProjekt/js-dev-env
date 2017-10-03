@@ -30,6 +30,7 @@ app.get('/', function(request, response) {
 });
 
 //set express to listen to :3000 and attach error handling
+/* eslint-disable no-console */
 app.listen(port, function(err){
     if(err) {
         console.log(err); //temporary

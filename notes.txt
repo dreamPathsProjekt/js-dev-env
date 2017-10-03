@@ -140,6 +140,76 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Part of our build
 - Only downloaded when open dev tools (so only dlded when needed)
 
+* Linting * => ESLint
+---------------------
+#   Popular linters:
+
+- JSLint: original by D.Crockford, opinionated
+
+- JSHint: configurability
+
+- ESLint: modern standard
+  (choose TSLint for TS support or diff for Elm)
+
+# ESLint - Core Decisions:
+
+-1. Config format
+-2. Built-in rules
+-3. Warn or errors
+-4. Which plugins
+-5. Use preset instead
+
+#   1.Config format
+- .eslintrc.js
+- .eslintrc.yaml
+- .eslintrc.yml
+- .eslintrc.json
+- .eslintrc
+^Dedicated: not tied to npm
+
+- package.json: one less file
+
+#   2.Which rules?
+- Enforce consistency
+
+#   3.Warn or errors?
+- Warning: can continue development (move fast), can be ignored(dangerous),
+           good for stylistic preferances, team must agree: fix warnings (don't commit)
+
+- Error: breaks the build (move slower), cannot be ignored,
+         good for potentially introducing bugs, team forced to comply
+
+#   4.Which plugins?
+- e.g. use eslint-plugin-react for rules specific to React-jsx,
+       use eslint-plugin-node for node.js, eslint-plugin-angular for AngularJS etc.
+
+- List of ESLint plugins & styleguides: github.com/dustinspecker/awesome-eslint
+
+#   5.Use Preset?
+- Start from scratch: tedious, comprehensive
+- ESLint Recommended: standard rules, tweak as needed
+- Presets: e.g. airbnb,XO,standardJS (not actually a standard - disallowing ; and enforcing ' single quotes = rather unpopular in js community)
+           faster, restrictive
+
+#   ESLint Issues {- (*) indicates used in starter-kit -}:
+
+- ESLint doesn't watch files (automatically):
+|- eslint-loader: tied to webpack, re-lints all files upon save,
+                  silent when no issues
+|- eslint-watch (*): npm pkg, ESLint wrapper that adds file watch, standalone,
+                 better error/warn formatting, displays clean msg when no issues,
+                 lint tests, webpack config & build scripts too
+
+- ESLint no support for many experimental features:
+|- Run ESLint directly (*): ES6 & ES7 native support, supports object spread(xp feat)
+|- Babel-eslint: Lint stage 0-4 features
+
+#   Why Lint via Automated Build Process vs In-Editor Linting:
+- One single place to check
+- Universal configuration (among team)
+- Part of CI (Continuous Integration => Reject builds automatically)
+
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -221,7 +291,31 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - add breakpoint in index.js with debugger (see index.js)
 - hit localhost:3000 with dev-tools and original es6 code is there
 
+#Opt (Not used)  Configure ESLint via package.json
+- add section: "eslintConfig": {
+                    "plugins": ["example"],
+                    "env": {
+                        "example/custom": true
+                    }
+                }
 
+#   Set up ESLint Strategy:
+- use ESLint Recommended
+- use eslint-watch
+- Create .eslintrc.json (.eslintrc to be deprecated) file in project root
+- Copy https://gist.github.com/coryhouse/61f866c7174220777899bcfff03dab7f (see .eslintrc.json)
+- Mouseover properties for explanation
+- Set personal rules in "rules": {} 0 - Off, 1 - Warning, 2 - Error
+- run it via npm script: use eslint-watch (devDependencies)
+- create script that runs esw (eslint-watch) (see package.json) -> esw webpack.config.* src buildScripts (warning space separated declarations of files/folders)
+- disable linting built-in editor (if you have .eslintrc in user dir delete it)
+- run with npm run lint and fix errors/warns (for console warnings that you want use /* eslint-disable no-console */ or in-line //eslint-disable-line no-console )
+
+#   Set up ESLint to watch files:
+- eslint-watch doesn't watch files by default -> create separate npm script to watch files
+- add script lint:watch to package.json and pass option --watch to existing lint script
+- test with npm run lint:watch and test live-generated linting on save
+- add linting to start script (see package.json)
 
 ********************************************************************************
 *                                                                              *
