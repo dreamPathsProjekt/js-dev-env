@@ -209,6 +209,65 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Universal configuration (among team)
 - Part of CI (Continuous Integration => Reject builds automatically)
 
+* Testing & CI * => Mocha
+-------------------------
+#   Testing Styles:
+- Unit: Single function/module, fast
+- Integration: Interactions between modules, test multiple units, slower
+- UI: Automate interactions with UI (clicks,keystrokes etc. by using e.g. Selenium)
+
+#   Unit Testing Decisions:
+- 1.Framework
+- 2.Assertion Library
+- 3.Helper Libraries
+- 4.Where (env) to run tests
+- 5.Where to place tests
+- 6.When to run tests
+
+#   1.Testing Framework => Mocha:
+- Mocha: configurable, popular(large support/eco), no built-in assertion lib
+- Jasmine: built-in assertion lib
+- Tape: simple-lean, minimal config
+- QUnit: oldest, used to test jQuery
+- AVA: run tests in-parallel, only re-run affected tests, fast
+- Jest: wrapper over Jasmine, suited to React
+
+#   2.Assertion Library => Chai:
+- Chai
+- Should.js
+- expect.js
+
+#   3.Helper Libraries => JSDOM + Cheerio:
+- JSDOM: simulate browser's DOM for testing (run faster tests without a browser)
+- Cheerio: jQuery for the server (query virtual DOM using jQuery selectors)
+
+#   4.Where to run => JSDOM:
+- Browser (slower): Karma, Testem
+- Headless Browser (no visible UI, fast): PhantomJS
+- In-memory DOM (faster, lightweight): JSDOM (virtual DOM)
+
+#   5.Where do test files belong? => Alongside (dubious):
+- Centralized (folder): separation, Mocha, less noise to src folder
+- Alongside src files: easy imports, clear visibility, easy to open, no recreate folder structure, easy to refactor/move
+
+#   6.When to run? => on-save:
+- Every time you save: rapid feedback, facilitate TDD,
+                       reduce friction, increase visibility
+
+#   CI - Server => Travis & Appveyor (cover Linux & Windows):
+- Run automated build (incl. who commited - changed build)
+- Run tests (ensures always happens)
+- Check code coverage (reject commit if coverage < threshold)
+- Automate deployment
+
+    # Options:
+    - Travis (Linux): hosted, large ecosystem, uses github
+    - Appveyor (Windows)
+    - Jenkins: self-hosted/cloud, large ecosystem
+    - CircleCI
+    - Semaphore
+    - SnapCI
+
 
 =========================
 * Recipe (manual cmds) *:
@@ -316,6 +375,21 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - add script lint:watch to package.json and pass option --watch to existing lint script
 - test with npm run lint:watch and test live-generated linting on save
 - add linting to start script (see package.json)
+
+#   Testing Setup:
+- Automated pipeline: Mocha:Chai:JSDOM:Node:Alongside:OnSave
+- Create testSetup.js in buildScripts/ add config for babel pre-transpiling and disabling .css imports on testing (see testSetup.js)
+- Add test script to package.json (edit "test" section)
+    * --reporter: progress (slim output-choose what reporter you like)
+    * run testSetup.js first
+    * run any tests associated with files src/*.test.js
+- Create test for index.js index.test.js in src/
+- Add test that uses JSDOM (see index.test.js) - warning tests run asynchronously
+- Add script test:watch to watch files and run tests on save (see package.json)
+- Add test:watch to main build automation pipeline in start -> live-testing on save
+
+#  Setup Continuous Integration:
+-
 
 ********************************************************************************
 *                                                                              *
