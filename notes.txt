@@ -389,11 +389,20 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Add test:watch to main build automation pipeline in start -> live-testing on save
 
 #  Setup Continuous Integration:
+
+## Travis CI - Test build on Linux
 - Sign-In (with github) to travis-ci.org
 - Turn On Project Repo in travis-ci
-- Add .travis.yml on / and edit configuration (see .travis.yml be careful yml syntax works with space on - character and 2 spaces on sub-fields)
+- Create .travis.yml on / and edit configuration (see .travis.yml be careful yml syntax works with space on - character and 2 spaces on sub-fields)
 - Test by minor change to index.html & commit changes to git repo
 - Assert on travis dashboard that build failed. Change index.html and commit/push
+
+## AppVeyor - Test build on Windows
+- Sign-In (with github) to https://www.appveyor.com/
+- New Project - auth github and add repo
+- Create appveyor.yml on /
+- Edit configuration (see appveyor.yml)
+
 
 ********************************************************************************
 *                                                                              *
