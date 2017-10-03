@@ -389,7 +389,10 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Add test:watch to main build automation pipeline in start -> live-testing on save
 
 #  Setup Continuous Integration:
--
+- Sign-In (with github) to travis-ci.org
+- Turn On Project Repo in travis-ci
+- Add .travis.yml on / and edit configuration (see .travis.yml)
+- Test by minor change to inde.html & commit changes to git repo
 
 ********************************************************************************
 *                                                                              *
