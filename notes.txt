@@ -391,8 +391,9 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 #  Setup Continuous Integration:
 - Sign-In (with github) to travis-ci.org
 - Turn On Project Repo in travis-ci
-- Add .travis.yml on / and edit configuration (see .travis.yml)
-- Test by minor change to inde.html & commit changes to git repo
+- Add .travis.yml on / and edit configuration (see .travis.yml be careful yml syntax works with space on - character and 2 spaces on sub-fields)
+- Test by minor change to index.html & commit changes to git repo
+- Assert on travis dashboard that build failed. Change index.html and commit/push
 
 ********************************************************************************
 *                                                                              *
