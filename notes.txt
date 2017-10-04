@@ -353,6 +353,21 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Manipulate via Node script
 - html-webpack-plugin (via Webpack)
 
+#   Bundle Splitting:
+- Speed initial page load (cached separately)
+- Avoid re-download all libraries
+- Options:
+    - split per page
+    - split 3rd-party libs to separate bundle
+
+#   Cache Busting (preserve bandwidth - js bundle !expire (in-client) for up to 1 year):
+- Save Http Requests
+- Force request for latest version
+- Plan:
+    - 1.Hash bundle filename: filename only change when the bundle actually changes
+    - 2.Generate HTML dynamically (HtmlWebpackPlugin)
+
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -546,6 +561,7 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
     - Breakdown: npm run build runs main build.js ,pre hook runs clean-dist, runs tests & linter, post hook fires up the distServer
     - Clean-dist: deletes previous dist/ folder and creates new folder dist/
 - Test npm run build >> Error because index.html does not exist in dist/ folder
+- Update .gitignore to not track dist/ folder
 
 #   Handle Dynamic HTML
 - Inject html-webpack-plugin in webpack.config.prod.js (see file)
@@ -553,6 +569,19 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Warning delete links do not work on production api (no handlers)
 - Minify HTML also in webpack.config.prod.js -> plugins -> HtmlWebpackPlugin -> minify: configuration (see file)
 
+#   Bundle Splitting with Webpack (for larger apps)
+- We can define multiple entry points in webpack.config.prod.js -> use keys for each one
+- Create vendor.js in src/ to reference 3rd-party libs
+- Add CommonsChunkPlugin to webpack plugins in webpack.config.prod.js
+- Update filename to webpack output to placeholder value in webpack.config.prod.js
+
+#   Bust Cache
+{ - Configure webserver to set far-future headers, app js bundles expire much later }
+- Use webpack-md5-cache plugin to hash filenames in webpack.config.prod.js
+- Import, plugins list and update output -> filename prop.
+
+#   Extract separate & minify CSS (instead of bundling up with JS in bundle files)
+- Setup ExtractTextPlugin in webpack.config.prod.js -> import, plugins & update css loaders
 
 
 ********************************************************************************
