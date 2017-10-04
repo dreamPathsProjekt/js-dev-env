@@ -319,6 +319,23 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - 2.Generate Random Data: faker.js, chance.js, randexp.js (based on regexp)
 - 3.Serve Data via API: JSON Server pointed to dynamically json generated at 2.
 
+* Project Structure *
+---------------------
+
+#   Include Demo App in Starter Kit:
+- Examples: Directory structure & file naming,Framework usage, Testing, Mock Api, Automated Deployment Recipe
+- Codifies decisions
+- Howto work with starter kit
+
+#   Project Structure Tips:
+- 1.JS in .js files strictly
+    - Use the Configuration Object Pattern: Inject configuration-based Json from the server into the application (serve dynamically generated data), DON'T output dynamically generated js.
+- 2.Organize by feature insted of organizing by filetype (like in MVC patterns)
+- 3.Extract logic into POJOs. (Plain Old JavaScript Objects)
+    - Pure logic/no Framework specific code e.g. logic outside React components.
+    - Decouple dependency of app on Framework.
+    - See https://github.com/coryhouse/react-slingshot for example (folder Utils)
+
 
 
 =========================
@@ -469,6 +486,33 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 
 #   Setup fetch - Selective polyfilling
 - In index.html set <script src="https://cdn.polyfill.io/v2/polyfill.js?features=fetch"></script>
+
+#   Create a Mock API Data JSON Schema
+- Create file mockDataSchema.js in buildScripts/
+- Copy Json Schema from https://gist.github.com/coryhouse/300ed803148caaf9d4f3f45d1a03874d ,
+  also see http://json-schema.org/examples.html
+- Use property inside schema "faker" to generate data (see mockDataSchema.js) from faker.js library
+- If you don't specify required properties some properties may not always show up, in case of root element the whole document may occasionally not show up
+
+#   Generate JSON data from schema using JSON Schema faker
+- Create file generateMockData.js in buildScripts/ (usually these schema files should be included inside folders of API)
+- Import json-schema-faker library and parse schema to generate json mock output
+- Create script "generate-mock-data" in package.json to automate
+- Test with npm run generate-mock-data (outputs db.json file)
+
+#   Serve mock data with JSON-Server
+- Create "start-mockapi" script in package.json with cmd "json-server --watch src/api/db.json --port 3001" (port 3001 to diff from dev-server @3000)
+- Test with npm run start-mockapi
+- Generate new mock data (randomize) every time app starts
+- Create pre hook("pre~") to "start-mockapi" in package.json
+- Attach start-mockapi to start script
+- Create file baseUrl.js in src/api/ to point to production (hard coded data served from express) or development Api based on window.location
+- Fix consumer (userApi.js) to point to baseUrl + url -> change based on environment (dev : production)
+
+#   Wire-Up Delete links to view JSON-Server live changes on db.json (Manipulate data)
+- In userApi.js export a new public function deleteUser(id) (also implement del(expose delete on id path variable) function as service pattern)
+- On index.js call deleteUser on each link ,remove from table.
+- Test that db.json removes record automatically (data persists like real db).
 
 
 
