@@ -614,3 +614,83 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 *!Bugfix: Terminate batch job not closing => Use Powershell as VsCode terminal.*
 *                                                                              *
 ********************************************************************************
+
+Notes / Bugs uncaught:
+----------------------
+html-webpack-plugin does not compile on node 6.7.0 and npm 3.10.3
+
+Html Webpack Plugin:
+
+  Error: Child compilation failed:
+  Module build failed: SyntaxError: Unexpected token .
+
+  - lodash.js:14843
+    [js-dev-env]/[lodash]/lodash.js:14843:16
+
+  - lodash.js:494 apply
+    [js-dev-env]/[lodash]/lodash.js:494:27
+
+  - lodash.js:15227
+    [js-dev-env]/[lodash]/lodash.js:15227:16
+
+  - lodash.js:496 apply
+    [js-dev-env]/[lodash]/lodash.js:496:27
+
+  - lodash.js:6600
+    [js-dev-env]/[lodash]/lodash.js:6600:16
+
+  - lodash.js:14842 Function.template
+    [js-dev-env]/[lodash]/lodash.js:14842:20
+
+
+  - SyntaxError: Unexpected token .
+
+  - compiler.js:76
+    [js-dev-env]/[html-webpack-plugin]/lib/compiler.js:76:16
+
+  - Compiler.js:214 Compiler.
+    [js-dev-env]/[webpack]/lib/Compiler.js:214:10
+
+  - Compiler.js:403
+    [js-dev-env]/[webpack]/lib/Compiler.js:403:12
+
+  - Tapable.js:67 Compiler.next
+    [js-dev-env]/[tapable]/lib/Tapable.js:67:11
+
+  - CachePlugin.js:40 Compiler.
+    [js-dev-env]/[webpack]/lib/CachePlugin.js:40:4
+
+  - Tapable.js:71 Compiler.applyPluginsAsync
+    [js-dev-env]/[tapable]/lib/Tapable.js:71:13
+
+  - Compiler.js:400 Compiler.
+    [js-dev-env]/[webpack]/lib/Compiler.js:400:9
+
+  - Compilation.js:577 Compilation.
+    [js-dev-env]/[webpack]/lib/Compilation.js:577:13
+
+  - Tapable.js:60 Compilation.applyPluginsAsync
+    [js-dev-env]/[tapable]/lib/Tapable.js:60:69
+
+  - Compilation.js:572 Compilation.
+    [js-dev-env]/[webpack]/lib/Compilation.js:572:10
+
+  - Tapable.js:67 Compilation.next
+    [js-dev-env]/[tapable]/lib/Tapable.js:67:11
+
+  - UglifyJsPlugin.js:140 Compilation.
+    [js-dev-env]/[webpack]/lib/optimize/UglifyJsPlugin.js:140:4
+
+  - Tapable.js:71 Compilation.applyPluginsAsync
+    [js-dev-env]/[tapable]/lib/Tapable.js:71:13
+
+  - Compilation.js:567 Compilation.
+    [js-dev-env]/[webpack]/lib/Compilation.js:567:9
+
+  - Tapable.js:60 Compilation.applyPluginsAsync
+    [js-dev-env]/[tapable]/lib/Tapable.js:60:69
+
+  - Compilation.js:563 Compilation.
+    [js-dev-env]/[webpack]/lib/Compilation.js:563:8
+
+
