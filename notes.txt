@@ -336,7 +336,22 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
     - Decouple dependency of app on Framework.
     - See https://github.com/coryhouse/react-slingshot for example (folder Utils)
 
+* Production *
+--------------
 
+#   Minification:
+- Minified code is debugged via sourcemap (see Bundling)
+
+#   Manipulate HTML for Production:
+- References bundles automatically
+- Handle dynamic bundle names
+- Inject production only resources
+- Minify HTML
+
+#   Reference Bundled Assets in HTML => html-webpack-plugin:
+- Hard code bundle.js (simple setups)
+- Manipulate via Node script
+- html-webpack-plugin (via Webpack)
 
 =========================
 * Recipe (manual cmds) *:
@@ -504,7 +519,7 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Create "start-mockapi" script in package.json with cmd "json-server --watch src/api/db.json --port 3001" (port 3001 to diff from dev-server @3000)
 - Test with npm run start-mockapi
 - Generate new mock data (randomize) every time app starts
-- Create pre hook("pre~") to "start-mockapi" in package.json
+- Declare pre hook("pre~") to "start-mockapi" in package.json
 - Attach start-mockapi to start script
 - Create file baseUrl.js in src/api/ to point to production (hard coded data served from express) or development Api based on window.location
 - Fix consumer (userApi.js) to point to baseUrl + url -> change based on environment (dev : production)
@@ -513,6 +528,30 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - In userApi.js export a new public function deleteUser(id) (also implement del(expose delete on id path variable) function as service pattern)
 - On index.js call deleteUser on each link ,remove from table.
 - Test that db.json removes record automatically (data persists like real db).
+
+#   Set up Minification - Production Changes
+- Copy webpack.config.dev.js to webpack.config.prod.js
+- Production settings:
+    - devtool (sourcemaps generated) to 'source-map' (slower)
+    - output path to 'dist' (distribution)
+    - setup minification: add Uglify.js plugin
+    - eliminate duplicate pkges: add DeDupe.js plugin
+- Create build.js script in buildScripts/ to run webpack compiler on build
+- Create file distServer.js in buildScripts/ to run distServer (like srcServer)
+- Copy srcServer.js to distServer.js and make changes (see distServer.js)
+- Toggle Api: Change http api calls based on path parameter useMockApi=true (test on browser) in baseUrl.js
+
+#   Automate Production Build Orchestration
+- Declare "clean-dist", "prebuild", "build", "postbuild" scripts and pre/post hooks in package.json as script execution structure
+    - Breakdown: npm run build runs main build.js ,pre hook runs clean-dist, runs tests & linter, post hook fires up the distServer
+    - Clean-dist: deletes previous dist/ folder and creates new folder dist/
+- Test npm run build >> Error because index.html does not exist in dist/ folder
+
+#   Handle Dynamic HTML
+- Inject html-webpack-plugin in webpack.config.prod.js (see file)
+- Remove script tag from index.html and also update webpack.config.dev.js to reference bundled html
+- Warning delete links do not work on production api (no handlers)
+- Minify HTML also in webpack.config.prod.js -> plugins -> HtmlWebpackPlugin -> minify: configuration (see file)
 
 
 
