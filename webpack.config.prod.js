@@ -54,7 +54,7 @@ export default {
       // Create HTML file that includes reference to bundled JS
       new HtmlWebpackPlugin({
         template: 'src/index.html',
-        inject: true,
+
         // settings for minifying html
         minify: {
           //enable all/most settings
@@ -68,7 +68,11 @@ export default {
           minifyJS: true,
           minifyCSS: true,
           minifyURLs: true
-        }
+        },
+        inject: true,
+        // Props you define here will be available in index.html
+        // using htmlWebpackPlugin.options.varName
+        trackJSToken: 'testToken12345678' // injected mock token
       })
   ],
   // loaders: filetypes we want webpack to handle or exclude
