@@ -609,6 +609,15 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - In webpack.config.prod.js inject TrackJS token (like in <script></script> code) in HtmlWebpackPlugin section under inject (see commented lines) (have injected own mock token)
 - Use EJS syntax condition inside index.html (see src/index.html)
     - #Bugfix: revert last change of inject TrackJS token. Remove comments in index.html (bugs introduced see: (B))
+    - commit 0395b4ca87ee0973269a34c5ee6bcf7d84f05bed (see diff changes)
+
+    --------------------------------------------------------------------
+    Author: dreamPathsProjekt <dream.paths.projekt@gmail.com>
+    Date:   Thu Oct 5 09:41:24 2017 +0300
+
+    Fix Parsing Error. Bug introduced by html comments in template.
+    --------------------------------------------------------------------
+
 
 
 ********************************************************************************
