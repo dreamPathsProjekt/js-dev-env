@@ -383,6 +383,24 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
     - New Relic
     - Raygun
 
+* Production Deployment * => Host API: Heroku | Host UI: Surge
+--------------------------------------------------------------
+
+#   Separate UI from API:
+- 1.Simple, low-risk, UI only deploys
+- 2.Separation of concerns
+    + separate teams
+    + less to understand
+    + scale back-end separately
+- 3.Cheap UI hosting
+- 4.Serve UI via CDN
+- 5.Use the API you like
+
+#   Automated Deployment (Cloud):
+- Surge (*), Github pages: serve only static files
+- Google Cloud, AWS, Azure, Heroku (*), Firebase: Host API + UI
+
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -618,8 +636,36 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
     Fix Parsing Error. Bug introduced by html comments in template.
     --------------------------------------------------------------------
 
-
-
+#   Automated API deploy to Heroku
+- Sign up with devcenter.heroku.com (documentation too) ,get started Node.js
+- Heroku Set up: Download Heroku CLI, set to add to system PATH to C:\Program Files\Heroku\bin
+    (Optional: Test Heroku on your machine)
+    - heroku login, enter credentials
+    - clone getting-started (demo app) to different Directory
+    - Create demo-app with: heroku create (if git global) | cd /c/Users/i.dritsas/My\ Documents/JsWorkspace/node-js-getting-started/ && /c/Program\ Files/Heroku/bin/ heroku create (if git user/local)
+    - Deploy demo-app with: git push heroku master
+    - Ensure that at least one instance of the app is running with: heroku ps:scale web=1 | (from gitBash for local git) /c/Program\ Files/Heroku/bin/heroku.exe ps:scale web=1
+    - Visit the URL with: heroku open | (from gitBash for local git) /c/Program\ Files/Heroku/bin/heroku.exe open
+    - Test: Ensure that you see: "Getting Started with Node on Heroku v1.0 dev branch" page
+    (/Optional)
+- Fork https://github.com/coryhouse/js-dev-env-demo-api/ that contains api separate, clone on separate folder
+    (e.g git clone https://github.com/dreamPathsProjekt/js-dev-env-demo-api)
+- npm install as usual (in demo-api)
+- package.json contains dependencies: express, cors (important to enable CORS, also enable in index.js)
+- change repository field in package.json & app.json to point to own ( e.g. https://github.com/dreamPathsProjekt/js-dev-env-demo-api )
+- Procfile: declares the command heroku should run
+- Deploy to Heroku (similar to Optional: Test Heroku):
+    - heroku login, enter credentials
+    - heroku create (see above) |  /c/Program\ Files/Heroku/bin/heroku create | (see options to pass param with own name instead of random)
+    - visit url generated, test: title should be: "Welcome to your new app!"
+    - set remote heroku git repo with: heroku git:remote -a {name of app that heroku returns in git repo field} (e.g. heroku git:remote -a secure-harbor-81493)
+    - publish the app with: git push heroku master
+    - (for real app you can specify registered domain)
+    - visit the URL with: heroku open | (from gitBash for local git) /c/Program\ Files/Heroku/bin/heroku.exe open
+    - {app url}/users is resource endpoint
+    - changes to api -> git commit -> git push heroku master -> changes deployed automatically!
+- Configure baseUrl.js in UI app to hit {heroku url}/users -> change param '/' in getQueryStringParameterByName if/else to point to {heroku url} (see baseUrl.js)
+- On distServer.js remove the hard coded api call (see commented lines)
 ********************************************************************************
 *                                                                              *
 *!Bugfix: Terminate batch job not closing => Use Powershell as VsCode terminal.*

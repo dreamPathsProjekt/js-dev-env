@@ -7,7 +7,7 @@
 // Test Production build on localhost
 // consumer targets based on queryString 'mockApi'
 export default function getBaseUrl() {
-    return getQueryStringParameterByName('useMockApi') ? 'http://localhost:3001/' : '/';
+    return getQueryStringParameterByName('useMockApi') ? 'http://localhost:3001/' : 'https://secure-harbor-81493.herokuapp.com/';
 }
 
 // get a parameter from the url - just use a library ffs
