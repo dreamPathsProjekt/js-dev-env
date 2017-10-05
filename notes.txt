@@ -403,6 +403,43 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 #   Path to Deployment Strategy:
 - npm start: development >> npm run build: production local build >> npm run deploy:production deploy to host(automatically push)
 
+#   Update Approaches (to Starter Kit):
+- How to update existing projects made with starter kit after starter-kit has been updated/enhanced/fixed/added:
+    - Yeoman: Scaffolding for new projects, create Yeoman generator out of dev-env with: npm install -g yo
+        - Update existing projects:
+            - 1.Commit All src Code
+            - 2.Scaffold over existing project (re-run generator - overwritten files with prompt)
+            - 3.Diff and resolve conflicts manually
+        -Course: Yeoman Fundamentals (PS)
+    - Github:
+            - 1.Host on github
+            - 2.Fork starter-kit for new project
+            - 3.Pull changes from master, as starter-kit is updated/enhanced
+    - Npm: Great to programmatically enforce all projects on same config-env, restrictive
+            - 1.Encapsulate starter-kit in npm package
+            - 2.Update npm to receive latest
+
+-Hybrid Approach(*):
+    - What to Centralize (check create-react-app)?:
+        - buildScripts -> npm pkg
+        - npm scripts in package.json -> call scripts in npm pkg
+        - webpack.config files -> npm pkg
+        - .eslintrc -> create preset (baseline)
+    - Decentralized:
+        - .editorconfig
+        - .babelrc
+        - CI config (travis.yml, appveyor.yml)
+        - pkg references in package.json -> update with existing npm tools
+
+#   References-Sources for Tooling:
+- andrewhfarmer.com/starter-project/ -> for React Starter Projects
+- github.com/gianab/awesome-angularjs -> for angularJs Seed Projects
+- search: {any-framework} + development environment, boilerplate, starter kit, seed, starter project
+
+-------
+* EON *
+-------
+
 =========================
 * Recipe (manual cmds) *:
 =========================
@@ -677,13 +714,15 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Create new account on the fly (email, password) > hit enter on url
 - Test: Visit returned random Url of deployed app
 
+=======
+* EOR *
+=======
 
-
-********************************************************************************
-*                                                                              *
-*!Bugfix: Terminate batch job not closing => Use Powershell as VsCode terminal.*
-*                                                                              *
-********************************************************************************
+**********************************************************************************
+*                                                                                *
+*!Bugfix: Terminate batch job not closing => Update Vs Code &| Windows powershell*
+*                                                                                *
+**********************************************************************************
 
 (B) Notes / Bugs uncaught:
 ----------------------
