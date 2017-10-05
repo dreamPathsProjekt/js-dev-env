@@ -608,6 +608,8 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - See templating language EJS - EmbeddedJs at embeddedjs.com
 - In webpack.config.prod.js inject TrackJS token (like in <script></script> code) in HtmlWebpackPlugin section under inject (see commented lines) (have injected own mock token)
 - Use EJS syntax condition inside index.html (see src/index.html)
+    - #Bugfix: revert last change of inject TrackJS token. Remove comments in index.html (bugs introduced see: (B))
+
 
 ********************************************************************************
 *                                                                              *
@@ -615,7 +617,7 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 *                                                                              *
 ********************************************************************************
 
-Notes / Bugs uncaught:
+(B) Notes / Bugs uncaught:
 ----------------------
 html-webpack-plugin does not compile on node 6.7.0 and npm 3.10.3
 
