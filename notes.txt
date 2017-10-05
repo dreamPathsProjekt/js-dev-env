@@ -400,6 +400,8 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
 - Surge (*), Github pages: serve only static files
 - Google Cloud, AWS, Azure, Heroku (*), Firebase: Host API + UI
 
+#   Path to Deployment Strategy:
+- npm start: development >> npm run build: production local build >> npm run deploy:production deploy to host(automatically push)
 
 =========================
 * Recipe (manual cmds) *:
@@ -666,6 +668,17 @@ ES6 Modules: Standardized, Statically analyzable (improves autocompletion & refa
     - changes to api -> git commit -> git push heroku master -> changes deployed automatically!
 - Configure baseUrl.js in UI app to hit {heroku url}/users -> change param '/' in getQueryStringParameterByName if/else to point to {heroku url} (see baseUrl.js)
 - On distServer.js remove the hard coded api call (see commented lines)
+
+#   Automated UI deploy to Surge:
+- surge.sh (Typically install globally with: npm install --global surge) We install surge via package.json (see "surge": "0.18.0" ) >> npm install
+- Add script deploy in package.json that deploys dist/ on surge
+- Call npm run build to create dist/ folder (also test HTTP GET works from Heroku Api)
+- Deploy with npm run deploy
+- Create new account on the fly (email, password) > hit enter on url
+- Test: Visit returned random Url of deployed app
+
+
+
 ********************************************************************************
 *                                                                              *
 *!Bugfix: Terminate batch job not closing => Use Powershell as VsCode terminal.*
